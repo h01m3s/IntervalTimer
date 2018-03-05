@@ -131,14 +131,21 @@ class TimerViewController: UIViewController {
         view.backgroundColor = UIColor.darkGray
         hTimer.delegate = self
         
-        let profile = Profile(profileName: "Default", cycle: 3, highInterval: 3, lowInterval: 3, highIntervalName: "high", lowIntervalName: "low")
-        
-        print("save profile status: ", defaultsStore.storeProfile(profile: profile, previousProfiles: []))
-        selectedProfile = defaultsStore.getSelectedProfile(profileName: "Default")
-        
         setupButtonAndProgressbar()
         
         setupLabels()
+        
+        setupTestingData()
+        selectedProfile = defaultsStore.getSelectedProfile(profileName: "Default")
+        tabBarController?.tabBar.barTintColor = UIColor.darkGray
+    }
+    
+    func setupTestingData() {
+         let profile1 = Profile(profileName: "Default", cycle: 2, highInterval: 5, lowInterval: 3, highIntervalName: "high", lowIntervalName: "low")
+         let profile2 = Profile(profileName: "Profile2", cycle: 3, highInterval: 3, lowInterval: 3, highIntervalName: "high", lowIntervalName: "low")
+         let profile3 = Profile(profileName: "Profile3", cycle: 3, highInterval: 3, lowInterval: 3, highIntervalName: "high", lowIntervalName: "low")
+        let result = defaultsStore.storeProfile(profile: profile3, previousProfiles: [profile1, profile2])
+        print("Storing Testing Data Status: ", result)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -177,7 +184,7 @@ class TimerViewController: UIViewController {
         view.addSubview(startButton)
         startButton.layer.cornerRadius = (width * 3/5) / 2
         startButton.anchorCenterXToSuperview()
-        startButton.anchor(nil, left: nil, bottom: view.safeAreaLayoutGuide.bottomAnchor, right: nil, topConstant: 0, leftConstant: 0, bottomConstant: (width * 3/5) / 2, rightConstant: 0, widthConstant: width * 3/5, heightConstant: width * 3/5)
+        startButton.anchor(nil, left: nil, bottom: view.safeAreaLayoutGuide.bottomAnchor, right: nil, topConstant: 0, leftConstant: 0, bottomConstant: (width * 1/5) / 2, rightConstant: 0, widthConstant: width * 3/5, heightConstant: width * 3/5)
         
         view.addSubview(progress)
         progress.centerXAnchor.constraint(equalTo: startButton.centerXAnchor).isActive = true
@@ -217,11 +224,11 @@ extension TimerViewController {
         if timeInterval.returnHighInterval != true {
             progress.set(colors: UIColor.circleGreen)
             progress.trackColor = UIColor.circleLightGreen
-            profileNameLabel.text = selectedProfile?.highIntervalName
+            profileNameLabel.text = selectedProfile?.highIntervalName.capitalized
         } else {
             progress.set(colors: UIColor.circleBlue)
             progress.trackColor = UIColor.circleLightBlue
-            profileNameLabel.text = selectedProfile?.lowIntervalName
+            profileNameLabel.text = selectedProfile?.lowIntervalName.capitalized
         }
 
         progress.animate(fromAngle: 0, toAngle: 360, duration: duration, completion: nil)

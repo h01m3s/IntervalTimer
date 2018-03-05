@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		B515F27A2B5293C768A0B552 /* Pods_IntervalTimer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50B794CE745901DCDDF0F223 /* Pods_IntervalTimer.framework */; };
+		DB276326204DEF7B00829E08 /* ProfilesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB276325204DEF7B00829E08 /* ProfilesTableViewController.swift */; };
+		DB276328204DEFEC00829E08 /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB276327204DEFEC00829E08 /* CustomTabBarController.swift */; };
 		DBA47F4F2048D9880072A11C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA47F4E2048D9880072A11C /* AppDelegate.swift */; };
 		DBA47F512048D9880072A11C /* TimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA47F502048D9880072A11C /* TimerViewController.swift */; };
 		DBA47F562048D9890072A11C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DBA47F552048D9890072A11C /* Assets.xcassets */; };
@@ -23,6 +25,8 @@
 		0E4998DA3D8BDF8FABB025F6 /* Pods-IntervalTimer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IntervalTimer.release.xcconfig"; path = "Pods/Target Support Files/Pods-IntervalTimer/Pods-IntervalTimer.release.xcconfig"; sourceTree = "<group>"; };
 		50B794CE745901DCDDF0F223 /* Pods_IntervalTimer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IntervalTimer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C695C8F3FFB242739733235 /* Pods-IntervalTimer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IntervalTimer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-IntervalTimer/Pods-IntervalTimer.debug.xcconfig"; sourceTree = "<group>"; };
+		DB276325204DEF7B00829E08 /* ProfilesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilesTableViewController.swift; sourceTree = "<group>"; };
+		DB276327204DEFEC00829E08 /* CustomTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
 		DBA47F4B2048D9880072A11C /* IntervalTimer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IntervalTimer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBA47F4E2048D9880072A11C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DBA47F502048D9880072A11C /* TimerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerViewController.swift; sourceTree = "<group>"; };
@@ -84,6 +88,8 @@
 				DBA47F622048DD780072A11C /* HTimer.swift */,
 				DBA47F642049C1540072A11C /* TimeIntervals.swift */,
 				DBA47F502048D9880072A11C /* TimerViewController.swift */,
+				DB276325204DEF7B00829E08 /* ProfilesTableViewController.swift */,
+				DB276327204DEFEC00829E08 /* CustomTabBarController.swift */,
 				DBA47F552048D9890072A11C /* Assets.xcassets */,
 				DBA47F572048D9890072A11C /* LaunchScreen.storyboard */,
 				DBA47F5A2048D9890072A11C /* Info.plist */,
@@ -229,12 +235,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				DBA47F632048DD780072A11C /* HTimer.swift in Sources */,
+				DB276326204DEF7B00829E08 /* ProfilesTableViewController.swift in Sources */,
 				DBA47F672049C18D0072A11C /* Profile.swift in Sources */,
 				DBA47F512048D9880072A11C /* TimerViewController.swift in Sources */,
 				DBA47F612048DBBF0072A11C /* Extensions.swift in Sources */,
 				DBA47F692049C4DF0072A11C /* DefaultsStore.swift in Sources */,
 				DBA47F4F2048D9880072A11C /* AppDelegate.swift in Sources */,
 				DBA47F652049C1540072A11C /* TimeIntervals.swift in Sources */,
+				DB276328204DEFEC00829E08 /* CustomTabBarController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
