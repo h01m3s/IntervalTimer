@@ -10,15 +10,15 @@ import UIKit
 
 extension UIColor {
     
-    static let circleGreen = UIColor.rgb(red: 105, green: 244, blue: 144)
-    static let circleLightGreen = UIColor.rgb(red: 209, green: 255, blue: 212)
-    static let circleBlue = UIColor.rgb(red: 97, green: 132, blue: 237)
-    static let circleLightBlue = UIColor.rgb(red: 180, green: 191, blue: 237)
+    static let circleGreen = UIColor(r: 105, g: 244, b: 144)
+    static let circleLightGreen = UIColor(r: 209, g: 255, b: 212)
+    static let circleBlue = UIColor(r: 97, g: 132, b: 237)
+    static let circleLightBlue = UIColor(r: 180, g: 191, b: 237)
     
-    static let warningRed = UIColor.rgb(red: 181, green: 85, blue: 68)
+    static let warningRed = UIColor(r: 181, g: 85, b: 68)
     
-    static func rgb(red: CGFloat, green: CGFloat, blue: CGFloat) -> UIColor {
-        return UIColor(red: red/255, green: green/255, blue: blue/255, alpha: 1)
+    convenience init(r red: CGFloat, g green: CGFloat, b blue: CGFloat) {
+        self.init(red: red/255, green: green/255, blue: blue/255, alpha: 1)
     }
     
 }

@@ -20,8 +20,6 @@ class CustomTabBarController: UITabBarController {
         navProfileTableController.tabBarItem = UITabBarItem(title: "Setting", image: UIImage(named: "setting"), tag: 2)
         
         viewControllers = [timerViewController, navProfileTableController]
-        
-        
     }
     
 }
