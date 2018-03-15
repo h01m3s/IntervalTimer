@@ -147,7 +147,7 @@ class ProfileCell: UITableViewCell {
     
     var link: ProfilesTableViewController?
     
-    fileprivate var originalWidth: CGFloat?
+    fileprivate var originalSize: CGSize?
     
     let sideTextField: UITextField = {
         let textField = UITextField()
@@ -184,10 +184,12 @@ class ProfileCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        if originalWidth == nil {
-            originalWidth = self.frame.size.width
+        
+        if originalSize == nil {
+            originalSize = self.frame.size
         }
-        bounds = CGRect(x: bounds.origin.x, y: bounds.origin.y, width: (originalWidth ?? self.frame.size.width) - 30, height: bounds.size.height - 10)
+        
+        bounds = CGRect(x: bounds.origin.x, y: bounds.origin.y, width: (originalSize?.width ?? self.frame.size.width) - 30, height: (originalSize?.height ?? self.frame.size.height) - 10)
     }
     
     override var bounds: CGRect {
@@ -197,8 +199,6 @@ class ProfileCell: UITableViewCell {
             layer.shadowRadius = 8
             layer.shadowOpacity = 0.2
             layer.shadowPath = UIBezierPath(roundedRect: bounds, byRoundingCorners: .allCorners, cornerRadii: CGSize(width: 8, height: 8)).cgPath
-//            layer.shadowShouldRasterize = true
-//            layer.shadowRasterizationScale = UIScreen.main.scale
         }
     }
     
