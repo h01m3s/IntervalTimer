@@ -101,8 +101,10 @@ class ProfileDetailController: UITableViewController, UIPickerViewDataSource, UI
         
         tableView.tableFooterView = UIView()
         tableView.separatorColor = .clear
-        tableView.isScrollEnabled = false
+//        tableView.isScrollEnabled = false
         tableView.register(ProfileCell.self, forCellReuseIdentifier: cellId)
+        
+        self.dismissKeyboardWhenTapped()
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

@@ -23,6 +23,19 @@ extension UIColor {
     
 }
 
+extension UIViewController {
+    
+    func dismissKeyboardWhenTapped() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
+}
+
 extension UIView {
     public func addConstraintsWithFormat(_ format: String, views: UIView...) {
         
