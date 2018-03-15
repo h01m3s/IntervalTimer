@@ -10,7 +10,6 @@ import UIKit
 
 class ProfilesTableViewController: UITableViewController {
     
-    let defaultsStore = DefaultsStore()
     let cellId = "cellId"
     var profiles = [Profile]()
     
@@ -24,37 +23,63 @@ class ProfilesTableViewController: UITableViewController {
         
         tableView.register(ProfileCell.self, forCellReuseIdentifier: cellId)
         
-        profiles = defaultsStore.getProfiles()
+        
         tableView.tableFooterView = UIView()
         tableView.separatorColor = .clear
         
         navigationItem.title = "Profiles"
         navigationController?.navigationBar.barTintColor = UIColor.darkGray
-//        navigationController?.navigationBar.tintColor = UIColor.white
+        navigationController?.navigationBar.tintColor = UIColor.white
 //        navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
         
 //        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "+", style: .plain, target: self, action: #selector(handleAddProfile))
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(handleAddProfile))
         navigationItem.rightBarButtonItem?.tintColor = .white
         
-        if #available(iOS 11.0, *) {
-            navigationController?.navigationBar.prefersLargeTitles = true
-        }
+//        if #available(iOS 11.0, *) {
+//            navigationController?.navigationBar.prefersLargeTitles = true
+//        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        tabBarController?.tabBar.isHidden = false
+        profiles = UserDefaults.getProfiles()
+        profiles.sort { $0.profileName < $1.profileName }
+        tableView.reloadData()
         self.animateTable()
     }
     
     @objc func handleAddProfile() {
-        print("handleAddProfile")
+        let profileDetailController = ProfileDetailController()
+        profileDetailController.previousProfiles = profiles
+        navigationController?.pushViewController(profileDetailController, animated: true)
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! ProfileCell
         cell.textLabel?.text = profiles[indexPath.item].profileName
+        cell.sideTextField.isEnabled = false
+        cell.link = self
+        let selectedProfileName = UserDefaults.getSelectedProfile()
+        cell.selectButton.tintColor = (cell.textLabel?.text == selectedProfileName) ? .red : .gray
         return cell
+    }
+    
+    @objc func handleSelectButton(cell: ProfileCell) {
+        guard let indexPathTapped = tableView.indexPath(for: cell) else { return }
+        let selectedProfileName = UserDefaults.getSelectedProfile()
+        if cell.textLabel?.text != selectedProfileName {
+            cell.selectButton.tintColor = .red
+            UserDefaults.setSelectedProfile(profileName: (cell.textLabel?.text)!)
+            let cells = tableView.visibleCells as! [ProfileCell]
+            for (index, cell) in cells.enumerated() {
+                if index != indexPathTapped.item {
+                    cell.selectButton.tintColor = .gray
+                }
+            }
+            tableView.reloadData()
+        }
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -63,6 +88,14 @@ class ProfilesTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let profileDetailController = ProfileDetailController()
+        profileDetailController.profile = profiles[indexPath.item]
+        profileDetailController.previousProfiles = profiles
+        profileDetailController.previousIndex = indexPath.item
+        navigationController?.pushViewController(profileDetailController, animated: true)
     }
     
     override func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {
@@ -86,7 +119,7 @@ class ProfilesTableViewController: UITableViewController {
         
         UIView.setAnimationDuration(0.2)
         
-        cell.transform =  CGAffineTransform(scaleX: 1.0, y: 1.0)
+        cell.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
         
         UIView.commitAnimations()
     }
@@ -112,7 +145,27 @@ class ProfilesTableViewController: UITableViewController {
 
 class ProfileCell: UITableViewCell {
     
+    var link: ProfilesTableViewController?
+    
     fileprivate var originalWidth: CGFloat?
+    
+    let sideTextField: UITextField = {
+        let textField = UITextField()
+        return textField
+    }()
+    
+    lazy var selectButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setImage(#imageLiteral(resourceName: "star"), for: .normal)
+        button.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
+        button.tintColor = .gray
+        button.addTarget(self, action: #selector(handleSelect), for: .touchUpInside)
+        return button
+    }()
+    
+    @objc private func handleSelect() {
+        link?.handleSelectButton(cell: self)
+    }
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
@@ -120,14 +173,21 @@ class ProfileCell: UITableViewCell {
         layer.masksToBounds = false
         backgroundColor = UIColor.lightGray
         layer.cornerRadius = 12
+        addSubview(sideTextField)
+        sideTextField.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        sideTextField.anchor(nil, left: nil, bottom: nil, right: rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 10, widthConstant: 100, heightConstant: 60)
+//        accessoryView = selecteButton
+        addSubview(selectButton)
+        selectButton.anchor(nil, left: nil, bottom: nil, right: rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 12, widthConstant: 50, heightConstant: 50)
+        selectButton.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
     }
     
     override func layoutSubviews() {
+        super.layoutSubviews()
         if originalWidth == nil {
             originalWidth = self.frame.size.width
         }
         bounds = CGRect(x: bounds.origin.x, y: bounds.origin.y, width: (originalWidth ?? self.frame.size.width) - 30, height: bounds.size.height - 10)
-        super.layoutSubviews()
     }
     
     override var bounds: CGRect {

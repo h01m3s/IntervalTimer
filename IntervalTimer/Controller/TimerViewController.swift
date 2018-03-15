@@ -13,12 +13,12 @@ class TimerViewController: UIViewController {
     
     fileprivate var hTimer = HTimer()
     fileprivate let timeInterval = TimeIntervals()
-    fileprivate let defaultsStore = DefaultsStore()
     fileprivate var isPlay = false
     fileprivate var timeRemaining: TimeInterval = 0
     fileprivate var timeElapsed: TimeInterval = 0
-    fileprivate var selectedProfile = Profile(profileName: "Default", cycle: 2, highInterval: 5, lowInterval: 3, highIntervalName: "high", lowIntervalName: "low") {
+    fileprivate var selectedProfile: Profile? {
         didSet {
+            guard let selectedProfile = selectedProfile else { return }
             profileNameLabel.text = selectedProfile.profileName
             totalTimeCounterLabel.text = textToDisplay(for: selectedProfile.totalTime)
         }
@@ -41,31 +41,35 @@ class TimerViewController: UIViewController {
         hTimer.delegate = self
         
         setupButtonAndProgressbar()
-        
         setupLabels()
         
         setupTestingData()
-        if let profile = defaultsStore.getSelectedProfile(profileName: "Default") {
+        
+        let selectedProfileName = UserDefaults.getSelectedProfile()
+        if let profile = UserDefaults.getSelectedProfile(profileName: selectedProfileName) {
             selectedProfile = profile
         }
+        
         tabBarController?.tabBar.barTintColor = UIColor.darkGray
     }
     
     func setupTestingData() {
-         let profile1 = Profile(profileName: "Default", cycle: 2, highInterval: 5, lowInterval: 3, highIntervalName: "high", lowIntervalName: "low")
-         let profile2 = Profile(profileName: "Profile2", cycle: 3, highInterval: 3, lowInterval: 3, highIntervalName: "high", lowIntervalName: "low")
-         let profile3 = Profile(profileName: "Profile3", cycle: 3, highInterval: 3, lowInterval: 3, highIntervalName: "high", lowIntervalName: "low")
-        let result = defaultsStore.storeProfile(profile: profile3, previousProfiles: [profile1, profile2])
-        print("Storing Testing Data Status: ", result)
+         let profile = Profile(profileName: "Tabata", cycle: 8, highInterval: 20, lowInterval: 10, highIntervalName: "high", lowIntervalName: "low")
+        let _ = UserDefaults.storeProfile(profile: profile, previousProfiles: [])
+        UserDefaults.setSelectedProfile(profileName: profile.profileName)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        let selectedProfileName = UserDefaults.getSelectedProfile()
+        if let profile = UserDefaults.getSelectedProfile(profileName: selectedProfileName) {
+            selectedProfile = profile
+        }
         resetDisplay()
     }
     
     @objc func handleStart() {
-        print("Start Timer")
+        guard let selectedProfile = selectedProfile else { return }
         timeInterval.setIntervals(profile: selectedProfile)
         
         timeElapsed = 0
@@ -109,6 +113,7 @@ class TimerViewController: UIViewController {
 extension TimerViewController {
     
     fileprivate func resetDisplay() {
+        guard let selectedProfile = selectedProfile else { return }
         counterLabel.text = textToDisplay(for: 0)
         timeRemaining = selectedProfile.totalTime
         totalTimeCounterLabel.text = textToDisplay(for: timeRemaining)
@@ -128,6 +133,7 @@ extension TimerViewController {
     }
     
     fileprivate func progressAnimationStart(duration: TimeInterval) {
+        guard let selectedProfile = selectedProfile else { return }
         guard duration > 0 else {
             return
         }
