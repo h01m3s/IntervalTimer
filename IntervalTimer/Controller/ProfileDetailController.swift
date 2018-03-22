@@ -114,7 +114,7 @@ class ProfileDetailController: UITableViewController {
         let cells = tableView.visibleCells as! [ProfileCell]
         
         for (index, cell) in cells.enumerated() {
-            guard let cellValue = cell.sideTextField.text else {
+            guard let cellValue = cell.sideTextField.text, cellValue != "" else {
                 print("Invalid Profile Input")
                 return nil
             }
