@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		B515F27A2B5293C768A0B552 /* Pods_IntervalTimer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50B794CE745901DCDDF0F223 /* Pods_IntervalTimer.framework */; };
+		DB0EF58B20646B5A009D5B04 /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0EF58A20646B5A009D5B04 /* ProfileCell.swift */; };
 		DB276326204DEF7B00829E08 /* ProfilesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB276325204DEF7B00829E08 /* ProfilesTableViewController.swift */; };
 		DB276328204DEFEC00829E08 /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB276327204DEFEC00829E08 /* CustomTabBarController.swift */; };
 		DB27632C204E0F2E00829E08 /* TimerViewSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB27632B204E0F2E00829E08 /* TimerViewSetup.swift */; };
@@ -27,6 +28,7 @@
 		0E4998DA3D8BDF8FABB025F6 /* Pods-IntervalTimer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IntervalTimer.release.xcconfig"; path = "Pods/Target Support Files/Pods-IntervalTimer/Pods-IntervalTimer.release.xcconfig"; sourceTree = "<group>"; };
 		50B794CE745901DCDDF0F223 /* Pods_IntervalTimer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IntervalTimer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C695C8F3FFB242739733235 /* Pods-IntervalTimer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IntervalTimer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-IntervalTimer/Pods-IntervalTimer.debug.xcconfig"; sourceTree = "<group>"; };
+		DB0EF58A20646B5A009D5B04 /* ProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
 		DB276325204DEF7B00829E08 /* ProfilesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilesTableViewController.swift; sourceTree = "<group>"; };
 		DB276327204DEFEC00829E08 /* CustomTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
 		DB27632B204E0F2E00829E08 /* TimerViewSetup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerViewSetup.swift; sourceTree = "<group>"; };
@@ -90,6 +92,7 @@
 			isa = PBXGroup;
 			children = (
 				DB27632B204E0F2E00829E08 /* TimerViewSetup.swift */,
+				DB0EF58A20646B5A009D5B04 /* ProfileCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -273,6 +276,7 @@
 				DBA47F692049C4DF0072A11C /* UserDefaults+helper.swift in Sources */,
 				DBA47F4F2048D9880072A11C /* AppDelegate.swift in Sources */,
 				DB27632F204E491900829E08 /* ProfileDetailController.swift in Sources */,
+				DB0EF58B20646B5A009D5B04 /* ProfileCell.swift in Sources */,
 				DBA47F652049C1540072A11C /* TimeIntervals.swift in Sources */,
 				DB276328204DEFEC00829E08 /* CustomTabBarController.swift in Sources */,
 			);
