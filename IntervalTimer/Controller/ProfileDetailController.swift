@@ -10,7 +10,6 @@ import UIKit
 
 class ProfileDetailController: UITableViewController {
     
-    let cellId = "cellId"
     var profile: Profile?
     var previousProfiles = [Profile]()
     var previousIndex = -1
@@ -29,7 +28,7 @@ class ProfileDetailController: UITableViewController {
         tableView.tableFooterView = UIView()
         tableView.separatorColor = .clear
 //        tableView.isScrollEnabled = false
-        tableView.register(ProfileCell.self, forCellReuseIdentifier: cellId)
+        tableView.register(ProfileCell.self, forCellReuseIdentifier: ProfileCell.identifier)
         
         self.dismissKeyboardWhenTapped()
     }
@@ -45,40 +44,32 @@ class ProfileDetailController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! ProfileCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: ProfileCell.identifier, for: indexPath) as! ProfileCell
         cell.selectButton.removeFromSuperview()
         switch indexPath.item {
-        case 0:
-            cell.textLabel?.text = "Profile Name:"
-            cell.sideTextField.text = profile?.profileName
-        case 1:
-            cell.textLabel?.text = "Cycle:"
-            cell.sideTextField.text = profile?.cycle.description
-            cell.sideTextField.keyboardType = .numberPad
-        case 2:
-            cell.textLabel?.text = "High Interval Name:"
-            cell.sideTextField.text = profile?.highIntervalName
-        case 3:
-            cell.textLabel?.text = "High Interval:"
-            if let highInterval = profile?.highInterval {
-                cell.sideTextField.text = Int(highInterval).description
-            } else {
-                cell.sideTextField.text = ""
-            }
-            cell.sideTextField.keyboardType = .numberPad
-        case 4:
-            cell.textLabel?.text = "Low Interval Name:"
-            cell.sideTextField.text = profile?.lowIntervalName
-        case 5:
-            cell.textLabel?.text = "Low Interval:"
-            if let lowInterval = profile?.lowInterval {
-                cell.sideTextField.text = Int(lowInterval).description
-            } else {
-                cell.sideTextField.text = ""
-            }
-            cell.sideTextField.keyboardType = .numberPad
-        default:
-            cell.textLabel?.text = "Profile Name:"
+            case 0:
+                cell.textLabel?.text = "Profile Name:"
+                cell.sideTextField.text = profile?.profileName
+            case 1:
+                cell.textLabel?.text = "Cycle:"
+                cell.sideTextField.text = profile?.cycle.description
+                cell.sideTextField.keyboardType = .numberPad
+            case 2:
+                cell.textLabel?.text = "High Interval Name:"
+                cell.sideTextField.text = profile?.highIntervalName
+            case 3:
+                cell.textLabel?.text = "High Interval:"
+                cell.sideTextField.text = (profile?.highInterval)?.description ?? ""
+                cell.sideTextField.keyboardType = .numberPad
+            case 4:
+                cell.textLabel?.text = "Low Interval Name:"
+                cell.sideTextField.text = profile?.lowIntervalName
+            case 5:
+                cell.textLabel?.text = "Low Interval:"
+                cell.sideTextField.text = (profile?.lowInterval)?.description ?? ""
+                cell.sideTextField.keyboardType = .numberPad
+            default:
+                break
         }
         return cell
     }
@@ -92,14 +83,11 @@ class ProfileDetailController: UITableViewController {
     }
     
     @objc func handleSaveProfile() {
+        guard let newProfile = createNewProfile() else { return }
+
         var newArr = previousProfiles
         if previousIndex != -1 {
             newArr.remove(at: previousIndex)
-        }
-        guard let newProfile = createNewProfile() else { return }
-        
-        if profile?.profileName == UserDefaults.getSelectedProfile() {
-            UserDefaults.setSelectedProfile(profileName: newProfile.profileName)
         }
         
         if UserDefaults.storeProfile(profile: newProfile, previousProfiles: newArr) != true {
@@ -119,28 +107,36 @@ class ProfileDetailController: UITableViewController {
                 return nil
             }
             switch index {
-            case 0:
-                profileDic["profileName"] = cellValue
-                profileDic["isSelected"] = (UserDefaults.getSelectedProfile() == cellValue) ? true : false
-            case 1:
-                profileDic["cycle"] = Int(cellValue)
-            case 2:
-                profileDic["highIntervalName"] = cellValue
-            case 3:
-                profileDic["highInterval"] = TimeInterval(cellValue)
-            case 4:
-                profileDic["lowIntervalName"] = cellValue
-            case 5:
-                profileDic["lowInterval"] = TimeInterval(cellValue)
-            default:
-                print("default case")
-            }
+                case 0:
+                    profileDic["profileName"] = cellValue
+                    if profile?.profileName == UserDefaults.getSelectedProfile() {
+                        UserDefaults.setSelectedProfile(profileName: cellValue)
+                        profileDic["isSelected"] = true
+                    } else {
+                        profileDic["isSelected"] = false
+                    }
+                case 1:
+                    profileDic["cycle"] = Int(cellValue)
+                case 2:
+                    profileDic["highIntervalName"] = cellValue
+                case 3:
+                    profileDic["highInterval"] = TimeInterval(cellValue)
+                case 4:
+                    profileDic["lowIntervalName"] = cellValue
+                case 5:
+                    profileDic["lowInterval"] = TimeInterval(cellValue)
+                default:
+                    break
+                }
         }
         
         let data = try! JSONSerialization.data(withJSONObject: profileDic, options: [])
 
         guard let newProfile = try? JSONDecoder().decode(Profile.self, from: data) else {
             print("Error when decoding...")
+            if profile != nil {
+                UserDefaults.setSelectedProfile(profileName: (profile?.profileName)!)
+            }
             return nil
         }
 
