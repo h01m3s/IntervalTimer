@@ -121,6 +121,7 @@ class ProfileDetailController: UITableViewController {
             switch index {
             case 0:
                 profileDic["profileName"] = cellValue
+                profileDic["isSelected"] = (UserDefaults.getSelectedProfile() == cellValue) ? true : false
             case 1:
                 profileDic["cycle"] = Int(cellValue)
             case 2:

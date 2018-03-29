@@ -22,4 +22,6 @@ struct Profile: Codable {
         }
     }
     
+    var isSelected = false
+    
 }

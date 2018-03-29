@@ -54,7 +54,7 @@ class TimerViewController: UIViewController {
     }
     
     func setupTestingData() {
-         let profile = Profile(profileName: "Tabata", cycle: 8, highInterval: 20, lowInterval: 10, highIntervalName: "high", lowIntervalName: "low")
+        let profile = Profile(profileName: "Tabata", cycle: 8, highInterval: 20, lowInterval: 10, highIntervalName: "high", lowIntervalName: "low", isSelected: true)
         let _ = UserDefaults.storeProfile(profile: profile, previousProfiles: [])
         UserDefaults.setSelectedProfile(profileName: profile.profileName)
     }

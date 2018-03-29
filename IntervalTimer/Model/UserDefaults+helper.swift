@@ -60,7 +60,7 @@ extension UserDefaults {
             return []
         }
         
-        return profiles
+        return profiles.sorted { $0.profileName < $1.profileName }
     }
     
 }

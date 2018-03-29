@@ -16,7 +16,19 @@ class ProfileCell: UITableViewCell {
     
     var delegate: ProfileCellDelegate?
     
+    var profile: Profile? {
+        didSet {
+            guard let profile = profile else { return }
+            textLabel?.text = profile.profileName
+            selectButton.tintColor = profile.isSelected ? .red : .gray
+        }
+    }
+    
     fileprivate var originalSize: CGSize?
+    
+    static var identifier: String {
+        return String(describing: self)
+    }
     
     let sideTextField: UITextField = {
         let textField = UITextField()
