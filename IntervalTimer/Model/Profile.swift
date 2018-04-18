@@ -25,3 +25,20 @@ struct Profile: Codable {
     var isSelected = false
     
 }
+
+extension Profile: Hashable {
+    // Needed if order to use set() function
+    
+    var hashValue: Int {
+        return profileName.hashValue
+    }
+    
+}
+
+extension Profile: Equatable {
+    
+    public static func == (lhs: Profile, rhs: Profile) -> Bool {
+        return lhs.profileName == rhs.profileName
+    }
+    
+}
