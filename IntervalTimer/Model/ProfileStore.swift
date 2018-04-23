@@ -16,7 +16,22 @@ class ProfileStore {
         case reload
     }
     
-    private init() {}
+    fileprivate let encoder = PropertyListEncoder()
+    fileprivate let decoder = PropertyListDecoder()
+    
+    private init() {
+        guard let profileData = UserDefaults.standard.data(forKey: "Profiles") else {
+            print("Error When get profiles data")
+            return
+        }
+        guard let profiles = try? UserDefaults.decoder.decode([Profile].self, from: profileData) else {
+            print("Error When convert profiles")
+            return
+        }
+        
+        items = profiles.sorted { $0.profileName < $1.profileName }
+    }
+    
     static let shared = ProfileStore()
     
     static func diff(original: [Profile], now: [Profile]) -> ChangeBehavior {
@@ -38,12 +53,20 @@ class ProfileStore {
     
     private var items: [Profile] = [] {
         didSet {
+            guard let encoded = try? encoder.encode(items) else { return }
+            UserDefaults.standard.set(encoded, forKey: "Profiles")
             let behavior = ProfileStore.diff(original: oldValue, now: items)
             NotificationCenter.default.post(
                 name: .profileStoreDidChangedNotification,
                 object: self,
                 typedUserInfo: [.profileStoreDidChangedChangeBehaviorKey: behavior]
             )
+        }
+    }
+    
+    func select(item: Profile) {
+        for index in items.indices {
+            items[index].isSelected = items[index] == item
         }
     }
     

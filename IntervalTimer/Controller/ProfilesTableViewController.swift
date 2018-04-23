@@ -36,8 +36,8 @@ class ProfilesTableViewController: UITableViewController, ProfileCellDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        profiles = UserDefaults.getProfiles()
-        tableView.reloadData()
+//        profiles = UserDefaults.getProfiles()
+//        tableView.reloadData()
 //        self.animateTable()
     }
     
@@ -47,19 +47,26 @@ class ProfilesTableViewController: UITableViewController, ProfileCellDelegate {
         navigationController?.pushViewController(profileDetailController, animated: true)
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let profileDetailController = ProfileDetailController()
-        profileDetailController.profile = profiles[indexPath.item]
-        profileDetailController.previousProfiles = profiles
-        profileDetailController.previousIndex = indexPath.item
-        navigationController?.pushViewController(profileDetailController, animated: true)
-    }
+//    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        let profileDetailController = ProfileDetailController()
+//        profileDetailController.profile = profiles[indexPath.item]
+//        profileDetailController.previousProfiles = profiles
+//        profileDetailController.previousIndex = indexPath.item
+//        navigationController?.pushViewController(profileDetailController, animated: true)
+//    }
     
+//    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let cell = tableView.dequeueReusableCell(withIdentifier: ProfileCell.identifier, for: indexPath) as! ProfileCell
+//        cell.profile = profiles[indexPath.item]
+//        cell.sideTextField.isEnabled = false
+//        cell.delegate = self
+//        return cell
+//    }
+    
+    // MARK: new
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: ProfileCell.identifier, for: indexPath) as! ProfileCell
-        cell.profile = profiles[indexPath.item]
-        cell.sideTextField.isEnabled = false
-        cell.delegate = self
+        let cell = tableView.dequeueReusableCell(withIdentifier: ProfileCell.identifier, for: indexPath)
+        cell.textLabel?.text = ProfileStore.shared.item(at: indexPath.row).profileName
         return cell
     }
 
@@ -79,7 +86,8 @@ class ProfilesTableViewController: UITableViewController, ProfileCellDelegate {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return profiles.count
+//        return profiles.count
+        return ProfileStore.shared.count
     }
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

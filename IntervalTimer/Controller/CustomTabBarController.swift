@@ -14,7 +14,7 @@ class CustomTabBarController: UITabBarController {
         super.viewDidLoad()
         
         let timerViewController = TimerViewController()
-        let navProfileTableController = UINavigationController(rootViewController: ProfilesTableViewController())
+        let navProfileTableController = UINavigationController(rootViewController: ProfilesTableViewController2())
         
         timerViewController.tabBarItem = UITabBarItem(title: "Timer", image: UIImage(named: "timer"), tag: 1)
         navProfileTableController.tabBarItem = UITabBarItem(title: "Setting", image: UIImage(named: "setting"), tag: 2)
