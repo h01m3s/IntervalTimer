@@ -53,6 +53,7 @@ class ProfileStore {
     
     private var items: [Profile] = [] {
         didSet {
+            items = Set(items).map { $0 }.sorted{  $0.profileName < $1.profileName }
             guard let encoded = try? encoder.encode(items) else { return }
             UserDefaults.standard.set(encoded, forKey: "Profiles")
             let behavior = ProfileStore.diff(original: oldValue, now: items)
