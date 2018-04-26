@@ -11,8 +11,6 @@ import UIKit
 class ProfileDetailController: UITableViewController {
     
     var profile: Profile?
-    var previousProfiles = [Profile]()
-    var previousIndex = -1
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
@@ -83,16 +81,16 @@ class ProfileDetailController: UITableViewController {
     }
     
     @objc func handleSaveProfile() {
-        guard let newProfile = createNewProfile() else { return }
+//        guard let newProfile = createNewProfile() else { return }
 
-        var newArr = previousProfiles
-        if previousIndex != -1 {
-            newArr.remove(at: previousIndex)
-        }
-        
-        if UserDefaults.storeProfile(profile: newProfile, previousProfiles: newArr) != true {
-            return
-        }
+//        var newArr = previousProfiles
+//        if previousIndex != -1 {
+//            newArr.remove(at: previousIndex)
+//        }
+//
+//        if UserDefaults.storeProfile(profile: newProfile, previousProfiles: newArr) != true {
+//            return
+//        }
         
         navigationController?.popToRootViewController(animated: true)
     }

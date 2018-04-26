@@ -43,7 +43,7 @@ class ProfilesTableViewController: UITableViewController, ProfileCellDelegate {
     
     @objc func handleAddProfile() {
         let profileDetailController = ProfileDetailController()
-        profileDetailController.previousProfiles = profiles
+//        profileDetailController.previousProfiles = profiles
         navigationController?.pushViewController(profileDetailController, animated: true)
     }
     

@@ -43,7 +43,7 @@ class TimerViewController: UIViewController {
         setupButtonAndProgressbar()
         setupLabels()
         
-        setupTestingData()
+//        setupTestingData()
         
         let selectedProfileName = UserDefaults.getSelectedProfile()
         if let profile = UserDefaults.getSelectedProfile(profileName: selectedProfileName) {
@@ -54,8 +54,13 @@ class TimerViewController: UIViewController {
     }
     
     func setupTestingData() {
+        let domain = Bundle.main.bundleIdentifier!
+        UserDefaults.standard.removePersistentDomain(forName: domain)
+        UserDefaults.standard.synchronize()
         let profile = Profile(profileName: "Tabata", cycle: 8, highInterval: 20, lowInterval: 10, highIntervalName: "high", lowIntervalName: "low", isSelected: true)
-        let _ = UserDefaults.storeProfile(profile: profile, previousProfiles: [])
+        let profile2 = Profile(profileName: "test", cycle: 8, highInterval: 20, lowInterval: 10, highIntervalName: "high", lowIntervalName: "low", isSelected: false)
+        let profile3 = Profile(profileName: "Aaa", cycle: 8, highInterval: 20, lowInterval: 10, highIntervalName: "high", lowIntervalName: "low", isSelected: false)
+        ProfileStore.shared.append(newItems: [profile, profile2, profile3])
         UserDefaults.setSelectedProfile(profileName: profile.profileName)
     }
     
