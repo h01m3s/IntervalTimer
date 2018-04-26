@@ -16,6 +16,7 @@
 		DB38FF7F2087D67700BA4C4C /* ProfileStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB38FF7E2087D67700BA4C4C /* ProfileStore.swift */; };
 		DB38FF812087D6E300BA4C4C /* Notification+helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB38FF802087D6E300BA4C4C /* Notification+helper.swift */; };
 		DBA25CB0208E770A00B51AEC /* ProfilesTableViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA25CAF208E770A00B51AEC /* ProfilesTableViewController2.swift */; };
+		DBA25CB220910A4400B51AEC /* ProfileDetailController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA25CB120910A4400B51AEC /* ProfileDetailController2.swift */; };
 		DBA47F4F2048D9880072A11C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA47F4E2048D9880072A11C /* AppDelegate.swift */; };
 		DBA47F512048D9880072A11C /* TimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA47F502048D9880072A11C /* TimerViewController.swift */; };
 		DBA47F562048D9890072A11C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DBA47F552048D9890072A11C /* Assets.xcassets */; };
@@ -39,6 +40,7 @@
 		DB38FF7E2087D67700BA4C4C /* ProfileStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileStore.swift; sourceTree = "<group>"; };
 		DB38FF802087D6E300BA4C4C /* Notification+helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+helper.swift"; sourceTree = "<group>"; };
 		DBA25CAF208E770A00B51AEC /* ProfilesTableViewController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilesTableViewController2.swift; sourceTree = "<group>"; };
+		DBA25CB120910A4400B51AEC /* ProfileDetailController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDetailController2.swift; sourceTree = "<group>"; };
 		DBA47F4B2048D9880072A11C /* IntervalTimer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IntervalTimer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBA47F4E2048D9880072A11C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DBA47F502048D9880072A11C /* TimerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerViewController.swift; sourceTree = "<group>"; };
@@ -92,6 +94,7 @@
 				DB276325204DEF7B00829E08 /* ProfilesTableViewController.swift */,
 				DBA25CAF208E770A00B51AEC /* ProfilesTableViewController2.swift */,
 				DB27632E204E491900829E08 /* ProfileDetailController.swift */,
+				DBA25CB120910A4400B51AEC /* ProfileDetailController2.swift */,
 				DB276327204DEFEC00829E08 /* CustomTabBarController.swift */,
 			);
 			path = Controller;
@@ -263,6 +266,7 @@
 				DBA47F632048DD780072A11C /* HTimer.swift in Sources */,
 				DB38FF7F2087D67700BA4C4C /* ProfileStore.swift in Sources */,
 				DB276326204DEF7B00829E08 /* ProfilesTableViewController.swift in Sources */,
+				DBA25CB220910A4400B51AEC /* ProfileDetailController2.swift in Sources */,
 				DB27632C204E0F2E00829E08 /* TimerViewSetup.swift in Sources */,
 				DBA47F672049C18D0072A11C /* Profile.swift in Sources */,
 				DBA25CB0208E770A00B51AEC /* ProfilesTableViewController2.swift in Sources */,
